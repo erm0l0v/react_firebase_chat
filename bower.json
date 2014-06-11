@@ -1,0 +1,21 @@
+{
+  "name": "react_firebase_chat",
+  "version": "0.0.0",
+  "authors": [
+    "kermolov <kermolov@academixdirect.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "react": "~0.10.0",
+    "fluxxor": "~1.2.0",
+    "firebase": "~1.0.17",
+    "bootstrap": "~3.1.1"
+  }
+}
