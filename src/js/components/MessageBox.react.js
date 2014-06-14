@@ -41,7 +41,7 @@ var MessageBox = React.createClass({
     onSubmit: function(e){
         e.preventDefault();
         this.props.onSubmit(this.state.name, this.state.message);
-        this.setState({name: '', message: ''});
+        this.setState({message: ''});
     }
 });
 

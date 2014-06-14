@@ -5,7 +5,8 @@ var Firebase = window.Firebase;
 var ChatStore = Fluxxor.createStore({
     initialize: function(options) {
         this.messages = options.messages || [];
-        this._firebase = new Firebase('https://ermolov.firebaseio.com/');
+        var fb_url = options.fb_url || 'https://ermolov.firebaseio.com/';
+        this._firebase = new Firebase(fb_url);
         this.bindActions('SEND_MESSAGE', this.handleSendMessage);
         this._startListener();
     },

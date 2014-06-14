@@ -9,7 +9,7 @@ var ChatStore = require('./stores/ChatStore');
 window.React = React;
 
 var stores = {
-    ChatStore: new ChatStore()
+    ChatStore: new ChatStore({fb_url: 'https://ermolov.firebaseio.com/'})
 };
 
 var flux = new Fluxxor.Flux(stores, actions);
