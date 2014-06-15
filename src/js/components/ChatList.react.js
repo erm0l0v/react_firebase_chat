@@ -2,19 +2,11 @@
 
 var React = require('react');
 var ChatItem = require('./ChatItem.react');
+var AutoScrollMixin = require('../mixins/AutoScrollMixin');
 
 var ChatList = React.createClass({
-    componentWillUpdate: function() {
-        var node = this.getDOMNode();
-        this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
-    },
 
-    componentDidUpdate: function() {
-        if (this.shouldScrollBottom) {
-            var node = this.getDOMNode();
-            node.scrollTop = node.scrollHeight
-        }
-    },
+    mixins: [AutoScrollMixin],
 
     render: function(){
         return (

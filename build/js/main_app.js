@@ -26655,19 +26655,11 @@ module.exports = ChatItem;
 
 var React = require('react');
 var ChatItem = require('./ChatItem.react');
+var AutoScrollMixin = require('../mixins/AutoScrollMixin');
 
 var ChatList = React.createClass({displayName: 'ChatList',
-    componentWillUpdate: function() {
-        var node = this.getDOMNode();
-        this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
-    },
 
-    componentDidUpdate: function() {
-        if (this.shouldScrollBottom) {
-            var node = this.getDOMNode();
-            node.scrollTop = node.scrollHeight
-        }
-    },
+    mixins: [AutoScrollMixin],
 
     render: function(){
         return (
@@ -26680,7 +26672,7 @@ var ChatList = React.createClass({displayName: 'ChatList',
 });
 
 module.exports = ChatList;
-},{"./ChatItem.react":11,"react":"7MB5yr"}],13:[function(require,module,exports){
+},{"../mixins/AutoScrollMixin":15,"./ChatItem.react":11,"react":"7MB5yr"}],13:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -26724,7 +26716,7 @@ var MessageBox = React.createClass({displayName: 'MessageBox',
     onSubmit: function(e){
         e.preventDefault();
         this.props.onSubmit(this.state.name, this.state.message);
-        this.setState({name: '', message: ''});
+        this.setState({message: ''});
     }
 });
 
@@ -26741,7 +26733,7 @@ var ChatStore = require('./stores/ChatStore');
 window.React = React;
 
 var stores = {
-    ChatStore: new ChatStore()
+    ChatStore: new ChatStore({fb_url: 'https://ermolov.firebaseio.com/'})
 };
 
 var flux = new Fluxxor.Flux(stores, actions);
@@ -26751,7 +26743,23 @@ React.renderComponent(
     document.getElementById('main-app')
 );
 
-},{"./actions/actions":9,"./components/App.react":10,"./stores/ChatStore":15,"fluxxor":"1DrE+V","react":"7MB5yr"}],15:[function(require,module,exports){
+},{"./actions/actions":9,"./components/App.react":10,"./stores/ChatStore":16,"fluxxor":"1DrE+V","react":"7MB5yr"}],15:[function(require,module,exports){
+var AutoScrollMixin = {
+    componentWillUpdate: function() {
+        var node = this.getDOMNode();
+        this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
+    },
+
+    componentDidUpdate: function() {
+        if (this.shouldScrollBottom) {
+            var node = this.getDOMNode();
+            node.scrollTop = node.scrollHeight
+        }
+    }
+};
+
+module.exports = AutoScrollMixin;
+},{}],16:[function(require,module,exports){
 var Fluxxor = require('fluxxor');
 require('firebase');
 var Firebase = window.Firebase;
@@ -26759,7 +26767,8 @@ var Firebase = window.Firebase;
 var ChatStore = Fluxxor.createStore({
     initialize: function(options) {
         this.messages = options.messages || [];
-        this._firebase = new Firebase('https://ermolov.firebaseio.com/');
+        var fb_url = options.fb_url || 'https://ermolov.firebaseio.com/';
+        this._firebase = new Firebase(fb_url);
         this.bindActions('SEND_MESSAGE', this.handleSendMessage);
         this._startListener();
     },
