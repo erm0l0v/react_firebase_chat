@@ -13,7 +13,7 @@ var ChatList = React.createClass({
             <ul className="pull-left col-md-8 chat-list">
                 {this.props.messages.map(function(message){
                     var date = new Date(message.createDate);
-                    date = date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear() + ' ' + date.getHours() + ':' +date.getMinutes();
+                    date = date.getHours() + ':' +date.getMinutes() + ' ' + date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear();
                     return <ChatItem name={message.name} text={message.message} createDate={date} />
                 })}
             </ul>)

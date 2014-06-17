@@ -26643,7 +26643,7 @@ var ChatItem = React.createClass({displayName: 'ChatItem',
         return (
             React.DOM.li( {className:"list-group-item"}, 
                 React.DOM.h4( {className:"chat-user-name"}, this.props.name),
-                React.DOM.span( {className:"chat-date"}, this.props.createDate),
+                React.DOM.span( {className:"pull-right"}, this.props.createDate),
                 React.DOM.p( {className:"chat-message"}, this.props.text)
              ))
     }
@@ -26667,7 +26667,7 @@ var ChatList = React.createClass({displayName: 'ChatList',
             React.DOM.ul( {className:"pull-left col-md-8 chat-list"}, 
                 this.props.messages.map(function(message){
                     var date = new Date(message.createDate);
-                    date = date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear() + ' ' + date.getMinutes() + ':' + date.getHours();
+                    date = date.getHours() + ':' +date.getMinutes() + ' ' + date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear();
                     return ChatItem( {name:message.name, text:message.message, createDate:date} )
                 })
             ))
