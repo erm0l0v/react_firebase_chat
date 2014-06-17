@@ -26,8 +26,8 @@ var App = React.createClass({
             </div>)
     },
 
-    sendMessage: function(name, message){
-        this.getFlux().actions.sendMessage(name, message);
+    sendMessage: function(name, message, createDate) {
+      this.getFlux().actions.sendMessage(name, message, createDate);
     }
 });
 

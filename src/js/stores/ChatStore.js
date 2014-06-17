@@ -27,7 +27,7 @@ var ChatStore = Fluxxor.createStore({
     },
 
     handleSendMessage: function(payload){
-        this._firebase.push({name:payload.name, message:payload.message});
+      this._firebase.push({name:payload.name, message:payload.message, createDate: payload.createDate});
     }
 
 });

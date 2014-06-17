@@ -11,13 +11,14 @@ var MessageBox = React.createClass({
     getInitialState: function(){
         return {
             name: '',
-            message: ''
+            message: '',
+            createDate: ''
         }
     },
 
     render: function(){
         return (
-            <form className="form-horizontal" onSubmit={this.onSubmit}>
+            <form className="col-md-4" onSubmit={this.onSubmit}>
                 <div className="form-group">
                     <label>Name:</label>
                     <input type="text" name="name" className="form-control" value={this.state.name} onChange={this.handleChangeName} />
@@ -40,7 +41,8 @@ var MessageBox = React.createClass({
 
     onSubmit: function(e){
         e.preventDefault();
-        this.props.onSubmit(this.state.name, this.state.message);
+        this.state.createDate = new Date().toString();
+        this.props.onSubmit(this.state.name, this.state.message, this.state.createDate);
         this.setState({message: ''});
     }
 });
